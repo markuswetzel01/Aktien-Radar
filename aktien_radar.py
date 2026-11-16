@@ -55,12 +55,11 @@ SEITEN_JS = r"""
 #radar-favs{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid #ddd;padding:8px 4px;font-size:14px}
 #radar-favs .chip{display:inline-block;background:#fff6d6;border:1px solid #e0c060;border-radius:14px;padding:3px 6px 3px 10px;margin:2px}
 #radar-favs .chip button{border:0;background:none;font-size:15px;cursor:pointer;color:#933;padding:0 4px}
-#radar-favs input{font-size:14px;padding:4px 6px;width:230px;max-width:60vw}
-#radar-wahl{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#222;color:#fff;padding:10px 12px;display:none;font-size:15px}
-#radar-wahl button{font-size:15px;margin:4px 0 0 8px;padding:7px 12px;border-radius:6px;border:0;cursor:pointer}
+#radar-suche{font-size:14px;padding:4px 6px;width:230px;max-width:60vw}
+#radar-favs .modus{margin-bottom:6px}
+#radar-favs label{margin-right:12px;white-space:nowrap;cursor:pointer}
 </style>
 <div id="radar-favs"></div>
-<div id="radar-wahl"></div>
 <script>
 var RADAR_PLOTS = [], RADAR_MEM = [], RADAR_KEY = 'radar_favoriten';
 function radarFavs() {
@@ -79,12 +78,16 @@ function radarUmschalten(t) {
 }
 function radarText(s) { var d = document.createElement('span'); d.textContent = s; return d.innerHTML; }
 function radarLeiste() {
-  var f = radarFavs(), h = '<b>Favoriten:</b> ';
+  var f = radarFavs(), m = radarModus();
+  var h = '<div class="modus"><b>Klick auf einen Punkt:</b> ' +
+          '<label><input type="radio" name="radar-modus"' + (m === 'yahoo' ? ' checked' : '') + ' onchange="radarModusSetzen(\'yahoo\')"> Yahoo-Seite &ouml;ffnen</label> ' +
+          '<label><input type="radio" name="radar-modus"' + (m === 'favorit' ? ' checked' : '') + ' onchange="radarModusSetzen(\'favorit\')"> Favorit setzen / entfernen</label></div>' +
+          '<b>Favoriten:</b> ';
   f.forEach(function (t) {
     h += '<span class="chip">' + radarText(RADAR_NAMEN[t] || t) +
          '<button title="entfernen" onclick="radarUmschalten(\'' + t.replace(/'/g, '') + '\')">&#10005;</button></span>';
   });
-  if (!f.length) h += '<span style="color:#777">noch keine &ndash; Punkt anklicken oder hier suchen</span> ';
+  if (!f.length) h += '<span style="color:#777">noch keine &ndash; oben auf &bdquo;Favorit setzen&ldquo; stellen und Punkte anklicken, oder hier suchen</span> ';
   h += ' <input id="radar-suche" list="radar-liste" placeholder="Name oder K&uuml;rzel hinzuf&uuml;gen">';
   if (f.length) h += ' <button onclick="radarSetzen([])">alle entfernen</button>';
   document.getElementById('radar-favs').innerHTML = h;
@@ -94,16 +97,18 @@ function radarLeiste() {
     this.value = '';
   };
 }
-function radarWahl(t) {
-  var w = document.getElementById('radar-wahl'), fav = radarFavs().indexOf(t) >= 0;
-  w.innerHTML = '<b>' + radarText(RADAR_NAMEN[t] || t) + '</b> (' + radarText(t) + ')<br>';
-  var b1 = document.createElement('button'); b1.textContent = fav ? '★ Favorit entfernen' : '☆ Als Favorit';
-  b1.onclick = function () { radarUmschalten(t); radarWahl(t); };
-  var b2 = document.createElement('button'); b2.textContent = 'Bei Yahoo öffnen';
-  b2.onclick = function () { window.open(RADAR_URL.replace('{t}', encodeURIComponent(t)), '_blank'); };
-  var b3 = document.createElement('button'); b3.textContent = 'Schließen';
-  b3.onclick = function () { w.style.display = 'none'; };
-  w.appendChild(b1); w.appendChild(b2); w.appendChild(b3); w.style.display = 'block';
+function radarModus() {
+  try { if (localStorage.getItem('radar_modus') === 'favorit') return 'favorit'; } catch (e) {}
+  return window._radarModus || 'yahoo';
+}
+function radarModusSetzen(m) {
+  window._radarModus = m;
+  try { localStorage.setItem('radar_modus', m); } catch (e) {}
+  radarLeiste();
+}
+function radarKlick(t) {
+  if (radarModus() === 'favorit') radarUmschalten(t);
+  else window.open(RADAR_URL.replace('{t}', encodeURIComponent(t)), '_blank');
 }
 function radarInit(gd) {
   gd._basis = gd.data.length; gd._punkte = {};
@@ -116,7 +121,7 @@ function radarInit(gd) {
       gd._punkte[c[1]] = { x: isFinite(x) ? x : letzter[0], y: isFinite(y) ? y : letzter[1], name: c[0] };
     });
   });
-  gd.on('plotly_click', function (d) { var c = d.points[0].customdata; if (c) radarWahl(c[1]); });
+  gd.on('plotly_click', function (d) { var c = d.points[0].customdata; if (c) radarKlick(c[1]); });
   RADAR_PLOTS.push(gd); radarZeichnen(gd);
 }
 function radarZeichnen(gd) {
@@ -487,7 +492,7 @@ def main():
             "<body style='font-family:Arial,sans-serif;max-width:1180px;margin:20px auto'>",
             "<h1>Aktien-Radar: RSL nach Levy und 4-Wochen-Momentum</h1>",
             f"<p>Erstellt {stand} · {len(df)} Werte · Quelle: Yahoo Finance, eigene Berechnung · "
-            "Keine Anlageberatung.<br>Punkt anklicken: als Favorit merken oder Seite bei Yahoo Finance öffnen. "
+            "Keine Anlageberatung.<br>"
             f"Favoriten zeigen als Linie ihren Weg der letzten {SPUR_WOCHEN} Wochen; die Liste gilt pro Gerät.</p>",
             "<script>var RADAR_URL = %s; var RADAR_NAMEN = %s; var RADAR_HIST = %s;</script>" % (
                 json.dumps(AKTIEN_URL),
