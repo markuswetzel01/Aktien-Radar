@@ -8,6 +8,7 @@ Aktien-Radar: Relative Stärke nach Levy (RSL) und 4-Wochen-Momentum.
 Liest tickers.csv (ticker,name,region,immer); immer=ja umgeht den Liquiditätsfilter, lädt Kurse von Yahoo Finance und
 schreibt aktien_radar.html (Charts) und aktien_radar.csv (Rangliste).
 """
+import json
 import re
 import sys
 import urllib.request
@@ -26,6 +27,7 @@ MOMENTUM_TAGE = 20        # 4 Wochen = 20 Handelstage
 MIN_UMSATZ_MIO_EUR = 10   # Liquiditätsfilter: mittlerer Tagesumsatz in Mio. EUR (0 = aus)
 INDIZES_LADEN = ["sp500", "nasdaq100"]  # komplett von Wikipedia ergänzen ([] = nur tickers.csv)
 KEINE_AKTIEN = {"ETFs", "Rohstoffe", "Währungen", "Krypto"}  # eigene Charts, nicht im Welt-Chart, kein Liquiditätsfilter
+SPUR_WOCHEN = 8           # Favoriten zeigen ihren Weg der letzten N Wochen
 ETF_NAMEN_PRUEFEN = True  # zeigt nach dem Lauf, wie Yahoo die ETFs nennt (zur Kontrolle der Kürzel)
 BREITE, HOEHE = 1150, 780 # Chartgröße in Pixeln
 MAX_ALTER_TAGE = 7        # Aktien ohne Kurs in den letzten N Tagen überspringen
@@ -43,15 +45,108 @@ WAEHRUNG = {
     "SA": "BRL", "MX": "MXN", "JO": "ZAc", "SS": "CNY", "SZ": "CNY",
 }
 
-# Klick auf einen Punkt öffnet die Aktienseite in einem neuen Tab ({t} = Yahoo-Kürzel)
+# Seite für eine Aktie ({t} = Yahoo-Kürzel)
 AKTIEN_URL = "https://de.finance.yahoo.com/quote/{t}/"
-KLICK_JS = """
-var gd = document.getElementById('{plot_id}');
-gd.on('plotly_click', function(d) {
-    var t = d.points[0].customdata[1];
-    window.open('%s'.replace('{t}', encodeURIComponent(t)), '_blank');
+KLICK_JS = "radarInit(document.getElementById('{plot_id}'));"
+
+# Favoriten: werden im Browser gespeichert (pro Gerät) und mit Spur der letzten Wochen gezeichnet
+SEITEN_JS = r"""
+<style>
+#radar-favs{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid #ddd;padding:8px 4px;font-size:14px}
+#radar-favs .chip{display:inline-block;background:#fff6d6;border:1px solid #e0c060;border-radius:14px;padding:3px 6px 3px 10px;margin:2px}
+#radar-favs .chip button{border:0;background:none;font-size:15px;cursor:pointer;color:#933;padding:0 4px}
+#radar-favs input{font-size:14px;padding:4px 6px;width:230px;max-width:60vw}
+#radar-wahl{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#222;color:#fff;padding:10px 12px;display:none;font-size:15px}
+#radar-wahl button{font-size:15px;margin:4px 0 0 8px;padding:7px 12px;border-radius:6px;border:0;cursor:pointer}
+</style>
+<div id="radar-favs"></div>
+<div id="radar-wahl"></div>
+<script>
+var RADAR_PLOTS = [], RADAR_MEM = [], RADAR_KEY = 'radar_favoriten';
+function radarFavs() {
+  try { var v = JSON.parse(localStorage.getItem(RADAR_KEY) || 'null'); if (Array.isArray(v)) return v; } catch (e) {}
+  return RADAR_MEM;
+}
+function radarSetzen(f) {
+  RADAR_MEM = f;
+  try { localStorage.setItem(RADAR_KEY, JSON.stringify(f)); } catch (e) {}
+  RADAR_PLOTS.forEach(radarZeichnen); radarLeiste();
+}
+function radarUmschalten(t) {
+  var f = radarFavs().slice(), i = f.indexOf(t);
+  if (i >= 0) f.splice(i, 1); else f.push(t);
+  radarSetzen(f);
+}
+function radarText(s) { var d = document.createElement('span'); d.textContent = s; return d.innerHTML; }
+function radarLeiste() {
+  var f = radarFavs(), h = '<b>Favoriten:</b> ';
+  f.forEach(function (t) {
+    h += '<span class="chip">' + radarText(RADAR_NAMEN[t] || t) +
+         '<button title="entfernen" onclick="radarUmschalten(\'' + t.replace(/'/g, '') + '\')">&#10005;</button></span>';
+  });
+  if (!f.length) h += '<span style="color:#777">noch keine &ndash; Punkt anklicken oder hier suchen</span> ';
+  h += ' <input id="radar-suche" list="radar-liste" placeholder="Name oder K&uuml;rzel hinzuf&uuml;gen">';
+  if (f.length) h += ' <button onclick="radarSetzen([])">alle entfernen</button>';
+  document.getElementById('radar-favs').innerHTML = h;
+  document.getElementById('radar-suche').onchange = function () {
+    var m = this.value.match(/\(([^()]+)\)\s*$/), t = m ? m[1] : this.value.trim().toUpperCase();
+    if (RADAR_NAMEN[t] && radarFavs().indexOf(t) < 0) radarUmschalten(t);
+    this.value = '';
+  };
+}
+function radarWahl(t) {
+  var w = document.getElementById('radar-wahl'), fav = radarFavs().indexOf(t) >= 0;
+  w.innerHTML = '<b>' + radarText(RADAR_NAMEN[t] || t) + '</b> (' + radarText(t) + ')<br>';
+  var b1 = document.createElement('button'); b1.textContent = fav ? '★ Favorit entfernen' : '☆ Als Favorit';
+  b1.onclick = function () { radarUmschalten(t); radarWahl(t); };
+  var b2 = document.createElement('button'); b2.textContent = 'Bei Yahoo öffnen';
+  b2.onclick = function () { window.open(RADAR_URL.replace('{t}', encodeURIComponent(t)), '_blank'); };
+  var b3 = document.createElement('button'); b3.textContent = 'Schließen';
+  b3.onclick = function () { w.style.display = 'none'; };
+  w.appendChild(b1); w.appendChild(b2); w.appendChild(b3); w.style.display = 'block';
+}
+function radarInit(gd) {
+  gd._basis = gd.data.length; gd._punkte = {};
+  gd._x0 = gd.layout.xaxis.range.slice(); gd._y0 = gd.layout.yaxis.range.slice();
+  gd.data.forEach(function (tr, k) {
+    var voll = (gd._fullData && gd._fullData[k]) || tr;      // dort sind die Zahlen entpackt
+    (tr.customdata || []).forEach(function (c, i) {
+      var h = RADAR_HIST[c[1]] || [], letzter = h[h.length - 1] || [null, null];
+      var x = Number(voll.x[i]), y = Number(voll.y[i]);
+      gd._punkte[c[1]] = { x: isFinite(x) ? x : letzter[0], y: isFinite(y) ? y : letzter[1], name: c[0] };
+    });
+  });
+  gd.on('plotly_click', function (d) { var c = d.points[0].customdata; if (c) radarWahl(c[1]); });
+  RADAR_PLOTS.push(gd); radarZeichnen(gd);
+}
+function radarZeichnen(gd) {
+  var weg = []; for (var i = gd._basis; i < gd.data.length; i++) weg.push(i);
+  if (weg.length) Plotly.deleteTraces(gd, weg);
+  var neu = [], xr = gd._x0.slice(), yr = gd._y0.slice();
+  radarFavs().forEach(function (t) {
+    var p = gd._punkte[t]; if (!p) return;
+    var h = RADAR_HIST[t] || [[p.x, p.y]];
+    var xs = h.map(function (q) { return q[0]; }), ys = h.map(function (q) { return q[1]; });
+    xs.forEach(function (v) { xr[0] = Math.min(xr[0], v - 0.01); xr[1] = Math.max(xr[1], v + 0.03); });
+    ys.forEach(function (v) { yr[0] = Math.min(yr[0], v - 0.01); yr[1] = Math.max(yr[1], v + 0.01); });
+    neu.push({ x: xs, y: ys, mode: 'lines+markers', line: { color: '#111', width: 2.5 },
+               marker: { size: 6, color: '#111' }, hoverinfo: 'skip', showlegend: false });
+    neu.push({ x: [p.x], y: [p.y], mode: 'markers+text', text: ['<b>' + p.name + '</b>'], textposition: 'top center',
+               textfont: { size: 12, color: '#000' }, cliponaxis: false,
+               marker: { symbol: 'star', size: 20, color: '#f1c40f', line: { color: '#000', width: 1.5 } },
+               customdata: [[p.name, t]], hovertemplate: '<b>' + p.name + '</b> (Favorit)<br>RSL %{x:.3f}<br>Momentum %{y:.3f}<extra></extra>',
+               showlegend: false });
+  });
+  if (neu.length) Plotly.addTraces(gd, neu);
+  Plotly.relayout(gd, { 'xaxis.range': xr, 'yaxis.range': yr });
+}
+document.addEventListener('DOMContentLoaded', function () {
+  var dl = document.createElement('datalist'); dl.id = 'radar-liste';
+  Object.keys(RADAR_NAMEN).forEach(function (t) { var o = document.createElement('option'); o.value = RADAR_NAMEN[t] + ' (' + t + ')'; dl.appendChild(o); });
+  document.body.appendChild(dl); radarLeiste();
 });
-""" % AKTIEN_URL
+</script>
+"""
 
 QUADRANTEN = {  # Name -> Farbe
     "Aufwärtstrend": "#1a9850",
@@ -201,7 +296,7 @@ def eur_kurse(waehrungen):
 
 
 def berechne(liste, kurs, vol, fx):
-    zeilen, fehler = [], []
+    zeilen, fehler, spuren = [], [], {}
     heute = pd.Timestamp(datetime.now().date())
     for _, z in liste.iterrows():
         t = z["ticker"]
@@ -238,6 +333,13 @@ def berechne(liste, kurs, vol, fx):
             q = "Rücksetzer"
         else:
             q = "Abwärtstrend"
+        spur = []
+        for zurueck in range(SPUR_WOCHEN * 5, -1, -5):          # wöchentliche Stützpunkte, alt -> neu
+            kk = k.iloc[:len(k) - zurueck]
+            if len(kk) > max(RSL_TAGE, MOMENTUM_TAGE + 1):
+                spur.append([round(float(kk.iloc[-1] / kk.iloc[-RSL_TAGE:].mean()), 4),
+                             round(float(kk.iloc[-1] / kk.iloc[-1 - MOMENTUM_TAGE]), 4)])
+        spuren[t] = spur
         zeilen.append({"Ticker": t, "Name": z["name"], "Region": z["region"],
                        "RSL": round(rsl, 4), "Momentum": round(mom, 4),
                        "Quadrant": q, "Kurs": round(letzter, 2),
@@ -246,7 +348,7 @@ def berechne(liste, kurs, vol, fx):
     df = pd.DataFrame(zeilen)
     if len(df):
         df = df.sort_values("RSL", ascending=False).reset_index(drop=True)
-    return df, fehler
+    return df, fehler, spuren
 
 
 def labels_setzen(df, x0, x1, y0, y1):
@@ -366,7 +468,7 @@ def main():
     fx = eur_kurse({waehrung_von(t) for t in liste["ticker"]})
     fx = {w: k for w, k in fx.items() if k}
 
-    df, fehler = berechne(liste, kurs, vol, fx)
+    df, fehler, spuren = berechne(liste, kurs, vol, fx)
     if df.empty:
         sys.exit("Keine Aktie hat die Kriterien erfüllt.")
 
@@ -385,7 +487,13 @@ def main():
             "<body style='font-family:Arial,sans-serif;max-width:1180px;margin:20px auto'>",
             "<h1>Aktien-Radar: RSL nach Levy und 4-Wochen-Momentum</h1>",
             f"<p>Erstellt {stand} · {len(df)} Werte · Quelle: Yahoo Finance, eigene Berechnung · "
-            "Keine Anlageberatung.<br>Maus auf einen Punkt zeigt die Aktie, Klick öffnet ihre Seite bei Yahoo Finance.</p>"]
+            "Keine Anlageberatung.<br>Punkt anklicken: als Favorit merken oder Seite bei Yahoo Finance öffnen. "
+            f"Favoriten zeigen als Linie ihren Weg der letzten {SPUR_WOCHEN} Wochen; die Liste gilt pro Gerät.</p>",
+            "<script>var RADAR_URL = %s; var RADAR_NAMEN = %s; var RADAR_HIST = %s;</script>" % (
+                json.dumps(AKTIEN_URL),
+                json.dumps(dict(zip(df["Ticker"], df["Name"])), ensure_ascii=False),
+                json.dumps({t: spuren.get(t, []) for t in df["Ticker"]}, separators=(",", ":"))),
+            SEITEN_JS]
     for i, f in enumerate(teile):
         html.append(f.to_html(full_html=False, include_plotlyjs=(i == 0), post_script=KLICK_JS))
     if fehler:
