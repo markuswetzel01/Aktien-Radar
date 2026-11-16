@@ -1,0 +1,343 @@
+ticker,name,region,immer
+AAPL,Apple,USA,
+MSFT,Microsoft,USA,
+NVDA,Nvidia,USA,
+AMZN,Amazon,USA,
+GOOGL,Alphabet,USA,
+META,Meta,USA,
+TSLA,Tesla,USA,
+AVGO,Broadcom,USA,
+BRK-B,Berkshire Hathaway,USA,
+JPM,JPMorgan,USA,
+LLY,Eli Lilly,USA,
+V,Visa,USA,
+MA,Mastercard,USA,
+UNH,UnitedHealth,USA,
+XOM,Exxon Mobil,USA,
+COST,Costco,USA,
+WMT,Walmart,USA,
+PG,Procter & Gamble,USA,
+JNJ,Johnson & Johnson,USA,
+HD,Home Depot,USA,
+ORCL,Oracle,USA,
+NFLX,Netflix,USA,
+BAC,Bank of America,USA,
+ABBV,AbbVie,USA,
+KO,Coca-Cola,USA,
+CRM,Salesforce,USA,
+CVX,Chevron,USA,
+MRK,Merck & Co,USA,
+AMD,AMD,USA,
+PEP,PepsiCo,USA,
+ADBE,Adobe,USA,
+TMO,Thermo Fisher,USA,
+CSCO,Cisco,USA,
+ACN,Accenture,USA,
+MCD,McDonald's,USA,
+LIN,Linde,USA,
+ABT,Abbott,USA,
+WFC,Wells Fargo,USA,
+GE,GE Aerospace,USA,
+IBM,IBM,USA,
+QCOM,Qualcomm,USA,
+TXN,Texas Instruments,USA,
+INTU,Intuit,USA,
+CAT,Caterpillar,USA,
+DIS,Disney,USA,
+PM,Philip Morris,USA,
+GS,Goldman Sachs,USA,
+MS,Morgan Stanley,USA,
+AMGN,Amgen,USA,
+VZ,Verizon,USA,
+PFE,Pfizer,USA,
+NOW,ServiceNow,USA,
+UBER,Uber,USA,
+BKNG,Booking,USA,
+ISRG,Intuitive Surgical,USA,
+RTX,RTX,USA,
+HON,Honeywell,USA,
+NKE,Nike,USA,
+BA,Boeing,USA,
+INTC,Intel,USA,
+PLTR,Palantir,USA,
+MU,Micron,USA,
+AMAT,Applied Materials,USA,
+T,AT&T,USA,
+C,Citigroup,USA,
+AXP,American Express,USA,
+BLK,BlackRock,USA,
+LMT,Lockheed Martin,USA,
+UNP,Union Pacific,USA,
+DE,Deere,USA,
+SAP.DE,SAP,Deutschland,
+SIE.DE,Siemens,Deutschland,
+ALV.DE,Allianz,Deutschland,
+DTE.DE,Dt. Telekom,Deutschland,
+AIR.DE,Airbus,Deutschland,
+MUV2.DE,Munich Re,Deutschland,
+RHM.DE,Rheinmetall,Deutschland,
+MBG.DE,Mercedes-Benz,Deutschland,
+BMW.DE,BMW,Deutschland,
+VOW3.DE,VW (Vz.),Deutschland,
+BAS.DE,BASF,Deutschland,
+BAYN.DE,Bayer,Deutschland,
+IFX.DE,Infineon,Deutschland,
+DB1.DE,Dt. Börse,Deutschland,
+DBK.DE,Dt. Bank,Deutschland,
+EOAN.DE,E.On,Deutschland,
+RWE.DE,RWE,Deutschland,
+ADS.DE,Adidas,Deutschland,
+DHL.DE,DHL,Deutschland,
+ENR.DE,Siemens Energy,Deutschland,
+CBK.DE,Commerzbank,Deutschland,
+HEI.DE,Heidelberg Materials,Deutschland,
+HNR1.DE,Hannover Rück,Deutschland,
+MRK.DE,Merck KGaA,Deutschland,
+FRE.DE,Fresenius,Deutschland,
+FME.DE,FMC,Deutschland,
+SHL.DE,Siemens Healthineers,Deutschland,
+DTG.DE,Daimler Truck,Deutschland,
+VNA.DE,Vonovia,Deutschland,
+HEN3.DE,Henkel (Vz.),Deutschland,
+BEI.DE,Beiersdorf,Deutschland,
+CON.DE,Continental,Deutschland,
+MTX.DE,MTU Aero Engines,Deutschland,
+SY1.DE,Symrise,Deutschland,
+QIA.DE,Qiagen,Deutschland,
+ZAL.DE,Zalando,Deutschland,
+G1A.DE,Gea,Deutschland,
+BNR.DE,Brenntag,Deutschland,
+HOT.DE,Hochtief,Deutschland,
+G24.DE,Scout24,Deutschland,
+8TRA.DE,Traton,Deutschland,ja
+LHA.DE,Lufthansa,Deutschland,ja
+AG1.DE,Auto1 Group,Deutschland,ja
+LXS.DE,Lanxess,Deutschland,ja
+AIXA.DE,Aixtron,Deutschland,ja
+NDA.DE,Aurubis,Deutschland,ja
+AMV0.DE,Aumovio,Deutschland,ja
+NDX1.DE,Nordex,Deutschland,ja
+AT1.DE,Aroundtown,Deutschland,ja
+NEM.DE,Nemetschek,Deutschland,ja
+BC8.DE,Bechtle,Deutschland,ja
+P911.DE,Porsche AG,Deutschland,ja
+DEZ.DE,Deutz,Deutschland,ja
+PAH3.DE,Porsche Holding,Deutschland,ja
+DHER.DE,Delivery Hero,Deutschland,ja
+PUM.DE,Puma,Deutschland,ja
+DWS.DE,DWS,Deutschland,ja
+R3NK.DE,Renk,Deutschland,ja
+ELG.DE,Elmos,Deutschland,ja
+RAA.DE,Rational,Deutschland,ja
+EVD.DE,CTS Eventim,Deutschland,ja
+RRTL.DE,RTL Group,Deutschland,ja
+EVK.DE,Evonik,Deutschland,ja
+SAX.DE,Ströer,Deutschland,ja
+FNTN.DE,Freenet,Deutschland,ja
+SDF.DE,K+S,Deutschland,ja
+FPE3.DE,Fuchs,Deutschland,ja
+SHA0.DE,Schaeffler,Deutschland,ja
+FRA.DE,Fraport,Deutschland,ja
+SMHN.DE,Süss MicroTec,Deutschland,ja
+FTK.DE,flatexDEGIRO,Deutschland,ja
+SRT3.DE,Sartorius,Deutschland,ja
+GBF.DE,Bilfinger,Deutschland,ja
+SZG.DE,Salzgitter,Deutschland,ja
+HAG.DE,Hensoldt,Deutschland,ja
+TEG.DE,TAG Immobilien,Deutschland,ja
+HLE.DE,Hella,Deutschland,ja
+TKA.DE,Thyssenkrupp,Deutschland,ja
+IOS.DE,Ionos,Deutschland,ja
+TKMS.DE,TKMS,Deutschland,ja
+JEN.DE,Jenoptik,Deutschland,ja
+TLX.DE,Talanx,Deutschland,ja
+KBX.DE,Knorr-Bremse,Deutschland,ja
+TUI1.DE,TUI,Deutschland,ja
+KGX.DE,Kion,Deutschland,ja
+UTDI.DE,United Internet,Deutschland,ja
+KRN.DE,Krones,Deutschland,ja
+WAF.DE,Siltronic,Deutschland,ja
+LEG.DE,LEG Immobilien,Deutschland,ja
+WCH.DE,Wacker Chemie,Deutschland,ja
+ASML.AS,ASML,Europa,
+INGA.AS,ING,Europa,
+PRX.AS,Prosus,Europa,
+ADYEN.AS,Adyen,Europa,
+MC.PA,LVMH,Europa,
+OR.PA,L'Oréal,Europa,
+RMS.PA,Hermès,Europa,
+TTE.PA,TotalEnergies,Europa,
+SAN.PA,Sanofi,Europa,
+AI.PA,Air Liquide,Europa,
+SU.PA,Schneider Electric,Europa,
+BNP.PA,BNP Paribas,Europa,
+CS.PA,AXA,Europa,
+SAF.PA,Safran,Europa,
+EL.PA,EssilorLuxottica,Europa,
+DG.PA,Vinci,Europa,
+NESN.SW,Nestlé,Europa,
+ROG.SW|RO.SW|RHO.DE|RHO.F,Roche,Europa,
+NOVN.SW,Novartis,Europa,
+UBSG.SW,UBS,Europa,
+ZURN.SW,Zurich Insurance,Europa,
+ABBN.SW,ABB,Europa,
+CFR.SW,Richemont,Europa,
+NOVO-B.CO,Novo Nordisk,Europa,
+AZN.L,AstraZeneca,Europa,
+SHEL.L,Shell,Europa,
+HSBA.L,HSBC,Europa,
+ULVR.L,Unilever,Europa,
+BP.L,BP,Europa,
+GSK.L,GSK,Europa,
+RIO.L,Rio Tinto,Europa,
+DGE.L,Diageo,Europa,
+REL.L,RELX,Europa,
+LSEG.L,LSEG,Europa,
+BA.L,BAE Systems,Europa,
+RR.L,Rolls-Royce,Europa,
+BATS.L,BAT,Europa,
+ITX.MC,Inditex,Europa,
+IBE.MC,Iberdrola,Europa,
+SAN.MC,Banco Santander,Europa,
+BBVA.MC,BBVA,Europa,
+ENEL.MI,Enel,Europa,
+ISP.MI,Intesa Sanpaolo,Europa,
+UCG.MI,UniCredit,Europa,
+ENI.MI,Eni,Europa,
+RACE.MI,Ferrari,Europa,
+ABI.BR,AB InBev,Europa,
+EQNR.OL,Equinor,Europa,
+VOLV-B.ST,Volvo,Europa,
+ATCO-A.ST,Atlas Copco,Europa,
+INVE-B.ST,Investor AB,Europa,
+NDA-FI.HE,Nordea,Europa,
+NOKIA.HE,Nokia,Europa,
+7203.T,Toyota,Asien-Pazifik,
+6758.T,Sony,Asien-Pazifik,
+8306.T,Mitsubishi UFJ,Asien-Pazifik,
+6861.T,Keyence,Asien-Pazifik,
+9984.T,SoftBank Group,Asien-Pazifik,
+6501.T,Hitachi,Asien-Pazifik,
+8035.T,Tokyo Electron,Asien-Pazifik,
+9432.T,NTT,Asien-Pazifik,
+7974.T,Nintendo,Asien-Pazifik,
+9983.T,Fast Retailing,Asien-Pazifik,
+4063.T,Shin-Etsu Chemical,Asien-Pazifik,
+6098.T,Recruit,Asien-Pazifik,
+8058.T,Mitsubishi Corp,Asien-Pazifik,
+8316.T,Sumitomo Mitsui,Asien-Pazifik,
+7011.T,Mitsubishi Heavy,Asien-Pazifik,
+6857.T,Advantest,Asien-Pazifik,
+4502.T,Takeda,Asien-Pazifik,
+0700.HK,Tencent,Asien-Pazifik,
+9988.HK,Alibaba,Asien-Pazifik,
+3690.HK,Meituan,Asien-Pazifik,
+1299.HK,AIA,Asien-Pazifik,
+0939.HK,China Construction Bank,Asien-Pazifik,
+0005.HK,HSBC (HK),Asien-Pazifik,
+1211.HK,BYD,Asien-Pazifik,
+1810.HK,Xiaomi,Asien-Pazifik,
+0941.HK,China Mobile,Asien-Pazifik,
+2318.HK,Ping An,Asien-Pazifik,
+0388.HK,HKEX,Asien-Pazifik,
+9618.HK,JD.com,Asien-Pazifik,
+1398.HK,ICBC,Asien-Pazifik,
+005930.KS,Samsung Electronics,Asien-Pazifik,
+000660.KS,SK Hynix,Asien-Pazifik,
+005380.KS,Hyundai Motor,Asien-Pazifik,
+2330.TW,TSMC,Asien-Pazifik,
+2317.TW,Hon Hai,Asien-Pazifik,
+2454.TW,MediaTek,Asien-Pazifik,
+RELIANCE.NS,Reliance Industries,Asien-Pazifik,
+TCS.NS,TCS,Asien-Pazifik,
+HDFCBANK.NS,HDFC Bank,Asien-Pazifik,
+INFY.NS,Infosys,Asien-Pazifik,
+ICICIBANK.NS,ICICI Bank,Asien-Pazifik,
+BHARTIARTL.NS,Bharti Airtel,Asien-Pazifik,
+BHP.AX,BHP,Asien-Pazifik,
+CBA.AX,Commonwealth Bank,Asien-Pazifik,
+CSL.AX,CSL,Asien-Pazifik,
+NAB.AX,National Australia Bank,Asien-Pazifik,
+WBC.AX,Westpac,Asien-Pazifik,
+RY.TO,Royal Bank of Canada,Kanada,
+TD.TO,Toronto-Dominion,Kanada,
+SHOP.TO,Shopify,Kanada,
+ENB.TO,Enbridge,Kanada,
+CNQ.TO,Canadian Natural,Kanada,
+CNR.TO,Canadian National,Kanada,
+EUNL.DE,Welt (MSCI World),ETFs,ja
+VWCE.DE,Welt inkl. Schwellenländer,ETFs,ja
+IUSN.DE,Welt Nebenwerte,ETFs,ja
+SXR8.DE,USA (S&P 500),ETFs,ja
+SXRV.DE,USA (Nasdaq 100),ETFs,ja
+EXSA.DE,Europa (STOXX 600),ETFs,ja
+EXW1.DE,Eurozone (Euro Stoxx 50),ETFs,ja
+EXS1.DE,Deutschland (DAX),ETFs,ja
+EXS3.DE,Deutschland (MDAX),ETFs,ja
+IS3N.DE,Schwellenländer,ETFs,ja
+XCS6.DE,China,ETFs,ja
+QDV5.DE,Indien,ETFs,ja
+XDJP.DE,Japan (Nikkei 225),ETFs,ja
+XDWT.DE,Branche Technologie,ETFs,ja
+XDWH.DE,Branche Gesundheit,ETFs,ja
+XDWF.DE,Branche Finanzen,ETFs,ja
+XDW0.DE,Branche Energie,ETFs,ja
+XDWI.DE,Branche Industrie,ETFs,ja
+XDWC.DE,Branche Zykl. Konsum,ETFs,ja
+XDWS.DE,Branche Basiskonsum,ETFs,ja
+XDWU.DE,Branche Versorger,ETFs,ja
+XDWM.DE,Branche Grundstoffe,ETFs,ja
+XWTS.DE,Branche Kommunikation,ETFs,ja
+XDEM.DE,Faktor Momentum,ETFs,ja
+XDEV.DE,Faktor Value,ETFs,ja
+XDEQ.DE,Faktor Qualität,ETFs,ja
+XDEB.DE,Faktor Min. Volatilität,ETFs,ja
+EXV1.DE,Europa Banken,ETFs,ja
+VVSM.DE,Halbleiter,ETFs,ja
+DFEN.DE,Rüstung,ETFs,ja
+2B76.DE,Robotik & Automation,ETFs,ja
+IQQH.DE,Saubere Energie,ETFs,ja
+IQQ6.DE,Immobilien weltweit,ETFs,ja
+EUNH.DE,Euro-Staatsanleihen,ETFs,ja
+EUN5.DE,Euro-Unternehmensanleihen,ETFs,ja
+EUNW.DE,Euro-Hochzinsanleihen,ETFs,ja
+EUNA.DE,Anleihen weltweit (EUR-gesichert),ETFs,ja
+IS04.DE,US-Staatsanleihen 20+ Jahre,ETFs,ja
+4GLD.DE,Gold (Xetra-Gold),ETFs,ja
+GC=F,Gold,Rohstoffe,ja
+SI=F,Silber,Rohstoffe,ja
+PL=F,Platin,Rohstoffe,ja
+PA=F,Palladium,Rohstoffe,ja
+HG=F,Kupfer,Rohstoffe,ja
+CL=F,Öl (WTI),Rohstoffe,ja
+BZ=F,Öl (Brent),Rohstoffe,ja
+NG=F,Erdgas,Rohstoffe,ja
+ZC=F,Mais,Rohstoffe,ja
+ZW=F,Weizen,Rohstoffe,ja
+ZS=F,Sojabohnen,Rohstoffe,ja
+KC=F,Kaffee,Rohstoffe,ja
+SB=F,Zucker,Rohstoffe,ja
+CC=F,Kakao,Rohstoffe,ja
+CT=F,Baumwolle,Rohstoffe,ja
+EURUSD=X,EUR/USD,Währungen,ja
+EURCHF=X,EUR/CHF,Währungen,ja
+EURGBP=X,EUR/GBP,Währungen,ja
+EURJPY=X,EUR/JPY,Währungen,ja
+EURCAD=X,EUR/CAD,Währungen,ja
+EURAUD=X,EUR/AUD,Währungen,ja
+EURNOK=X,EUR/NOK,Währungen,ja
+EURSEK=X,EUR/SEK,Währungen,ja
+EURCNY=X,EUR/CNY,Währungen,ja
+EURZAR=X,EUR/ZAR,Währungen,ja
+USDJPY=X,USD/JPY,Währungen,ja
+GBPUSD=X,GBP/USD,Währungen,ja
+BTC-EUR|BTC-USD,Bitcoin,Krypto,ja
+ETH-EUR|ETH-USD,Ethereum,Krypto,ja
+BNB-EUR|BNB-USD,BNB,Krypto,ja
+XRP-EUR|XRP-USD,XRP,Krypto,ja
+SOL-EUR|SOL-USD,Solana,Krypto,ja
+TRX-EUR|TRX-USD,Tron,Krypto,ja
+ZEC-EUR|ZEC-USD,Zcash,Krypto,ja
+HYPE32196-EUR|HYPE32196-USD|HYPE-EUR|HYPE-USD,Hyperliquid,Krypto,ja
+XMR-EUR|XMR-USD,Monero,Krypto,ja
+LINK-EUR|LINK-USD,Chainlink,Krypto,ja

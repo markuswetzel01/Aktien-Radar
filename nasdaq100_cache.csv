@@ -1,0 +1,102 @@
+﻿ticker,name,region
+ADBE,Adobe,USA
+AMD,AMD,USA
+ABNB,Airbnb,USA
+ALNY,Alnylam,USA
+GOOGL,Alphabet (A),USA
+GOOG,Alphabet (C),USA
+AMZN,Amazon,USA
+AEP,American Electric Power,USA
+AMGN,Amgen,USA
+ADI,Analog Devices,USA
+AAPL,Apple,USA
+AMAT,Applied Materials,USA
+APP,AppLovin,USA
+ARM,Arm Holdings,USA
+ASML,ASML (US),USA
+ALAB,Astera Labs,USA
+ADSK,Autodesk,USA
+ADP,ADP,USA
+AXON,Axon,USA
+BKR,Baker Hughes,USA
+BKNG,Booking,USA
+AVGO,Broadcom,USA
+CDNS,Cadence,USA
+CTAS,Cintas,USA
+CSCO,Cisco,USA
+CCEP,Coca-Cola Europacific,USA
+CMCSA,Comcast,USA
+CEG,Constellation Energy,USA
+CPRT,Copart,USA
+CRWV,CoreWeave,USA
+COST,Costco,USA
+CRWD,CrowdStrike,USA
+CSX,CSX,USA
+DDOG,Datadog,USA
+DXCM,Dexcom,USA
+FANG,Diamondback Energy,USA
+DASH,DoorDash,USA
+EXC,Exelon,USA
+FAST,Fastenal,USA
+FER,Ferrovial,USA
+FTNT,Fortinet,USA
+GEHC,GE HealthCare,USA
+GILD,Gilead,USA
+HONA,Honeywell Aerospace,USA
+HON,Honeywell,USA
+IDXX,Idexx,USA
+INTC,Intel,USA
+INTU,Intuit,USA
+ISRG,Intuitive Surgical,USA
+KDP,Keurig Dr Pepper,USA
+KLAC,KLA,USA
+LRCX,Lam Research,USA
+LIN,Linde,USA
+LITE,Lumentum,USA
+MAR,Marriott,USA
+MRVL,Marvell,USA
+MELI,MercadoLibre,USA
+META,Meta,USA
+MCHP,Microchip,USA
+MU,Micron,USA
+MSFT,Microsoft,USA
+MRNA,Moderna,USA
+MDLZ,Mondelez,USA
+MPWR,Monolithic Power,USA
+MNST,Monster Beverage,USA
+NBIS,Nebius,USA
+NFLX,Netflix,USA
+NVDA,Nvidia,USA
+NXPI,NXP,USA
+ORLY,O'Reilly,USA
+ODFL,Old Dominion,USA
+PCAR,Paccar,USA
+PLTR,Palantir,USA
+PANW,Palo Alto Networks,USA
+PAYX,Paychex,USA
+PYPL,PayPal,USA
+PDD,PDD Holdings,USA
+PEP,PepsiCo,USA
+QCOM,Qualcomm,USA
+REGN,Regeneron,USA
+RKLB,Rocket Lab,USA
+ROP,Roper,USA
+ROST,Ross Stores,USA
+SNDK,Sandisk,USA
+STX,Seagate,USA
+SHOP,Shopify (US),USA
+SPCX,SpaceX,USA
+SBUX,Starbucks,USA
+MSTR,Strategy,USA
+SNPS,Synopsys,USA
+TMUS,T-Mobile US,USA
+TTWO,Take-Two,USA
+TER,Teradyne,USA
+TSLA,Tesla,USA
+TXN,Texas Instruments,USA
+TRI,Thomson Reuters,USA
+VRTX,Vertex,USA
+WMT,Walmart,USA
+WDC,Western Digital,USA
+WDAY,Workday,USA
+XEL,Xcel Energy,USA
